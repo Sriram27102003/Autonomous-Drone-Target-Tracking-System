@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="forest_world">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Add Tree Models Here -->
+    <model name="tree1">
+      <pose>3 3 0 0 0 0</pose>
+      <include>
+        <uri>model://tree</uri>
+      </include>
+    </model>
+
+    <model name="tree2">
+      <pose>6 -2 0 0 0 0</pose>
+      <include>
+        <uri>model://tree</uri>
+      </include>
+    </model>
+
+    <!-- Add more trees as needed -->
+  </world>
+</sdf>

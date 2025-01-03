@@ -1,0 +1,23 @@
+<launch>
+  <!-- Launch Gazebo and load the forest world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find forest_env)/worlds/forest_world.world"/>
+  </include>
+
+  <!-- Spawn the TurtleBot3 model -->
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_turtlebot" output="screen"
+        args="-urdf -param robot_description -model turtlebot3">
+  </node>
+
+  <!-- Run SLAM with GMapping -->
+  <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping" output="screen">
+    <param name="odom_frame" value="odom"/>
+    <param name="map_update_interval" value="5.0"/>
+    <param name="maxUrange" value="10.0"/>
+    <param name="minimumScore" value="50.0"/>
+  </node>
+
+  <!-- Launch teleoperation for manual control -->
+  <include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+
+</launch>
