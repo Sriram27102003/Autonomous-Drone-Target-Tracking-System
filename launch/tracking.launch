@@ -1,0 +1,45 @@
+<launch>
+  <!-- Full demo: simulation, SLAM, person detection + tracking, and autonomous following. -->
+  <arg name="model" default="waffle" doc="TurtleBot3 model [waffle, waffle_pi]"/>
+  <arg name="world" default="$(find human_detector)/worlds/forest_people.world"/>
+  <arg name="gui" default="true" doc="Show the Gazebo window"/>
+  <arg name="backend" default="yolo" doc="Person detector [yolo, hog]"/>
+  <arg name="follow" default="true" doc="Drive towards the tracked person"/>
+  <arg name="slam" default="true" doc="Build a map with GMapping while tracking"/>
+  <arg name="rviz" default="true"/>
+  <arg name="view_image" default="true" doc="Show the annotated camera image"/>
+
+  <include file="$(find human_detector)/launch/simulation.launch">
+    <arg name="model" value="$(arg model)"/>
+    <arg name="world" value="$(arg world)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- turtlebot3_slam also starts robot_state_publisher (via turtlebot3_remote) -->
+  <include if="$(arg slam)" file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch">
+    <arg name="model" value="$(arg model)"/>
+    <arg name="slam_methods" value="gmapping"/>
+    <arg name="open_rviz" value="$(arg rviz)"/>
+  </include>
+  <node unless="$(arg slam)" pkg="robot_state_publisher" type="robot_state_publisher"
+        name="robot_state_publisher"/>
+
+  <node pkg="human_detector" type="person_tracker_node.py" name="person_tracker" output="screen">
+    <rosparam command="load" file="$(find human_detector)/config/tracker.yaml"/>
+    <param name="backend" value="$(arg backend)"/>
+    <remap from="image" to="/camera/rgb/image_raw"/>
+  </node>
+
+  <node if="$(arg follow)" pkg="human_detector" type="target_follower_node.py" name="target_follower" output="screen">
+    <rosparam command="load" file="$(find human_detector)/config/follower.yaml"/>
+    <remap from="target" to="/person_tracker/target"/>
+    <remap from="camera_info" to="/camera/rgb/camera_info"/>
+    <remap from="scan" to="/scan"/>
+    <remap from="cmd_vel" to="/cmd_vel"/>
+  </node>
+
+  <node if="$(arg view_image)" pkg="image_view" type="image_view" name="tracker_view">
+    <remap from="image" to="/person_tracker/annotated"/>
+    <param name="autosize" value="true"/>
+  </node>
+</launch>

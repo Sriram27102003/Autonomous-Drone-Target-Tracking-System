@@ -1,0 +1,14 @@
+# person_tracker_node.py parameters
+backend: yolo          # yolo (YOLOv8, needs `pip3 install ultralytics`) or hog (OpenCV, built in)
+model: yolov8n.pt      # YOLO weights; downloaded on first run. yolov8s.pt is more accurate, slower
+confidence: 0.4        # minimum detection score (HOG scores are on a different scale; ~0.3 works)
+device: ""             # "" = auto, "cpu", or "0" for the first CUDA GPU
+image_size: 640        # YOLO input size
+max_rate: 10.0         # process at most this many frames per second (0 = every frame)
+show_window: false     # also show an OpenCV window (the launch file uses image_view instead)
+
+# Tracker
+iou_threshold: 0.3     # minimum box overlap to continue a track
+max_misses: 15         # frames a person may be missing before their track is dropped
+min_hits: 3            # frames before a new track is reported (filters flicker)
+smoothing: 0.6         # weight of the newest box; lower = smoother but laggier

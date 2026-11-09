@@ -1,58 +1,41 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>human_detector</name>
-  <version>0.0.1</version>
-  <description>The human_detector package is a ROS package that includes a forest environment for TurtleBot and performs SLAM using GMapping in a ROS simulation environment.</description>
+  <version>0.2.0</version>
+  <description>
+    Autonomous person detection, tracking and following for a TurtleBot3 in Gazebo.
+    Detects people with YOLOv8 (or OpenCV HOG), tracks them across frames with persistent IDs,
+    follows a chosen target using the camera and lidar, and maps the environment with GMapping SLAM.
+  </description>
 
-  <!-- Maintainer Information -->
-  <maintainer email="your_email@domain.com">Your Name</maintainer>
+  <maintainer email="sriram.surya@icloud.com">Sriram</maintainer>
+  <license>MIT</license>
+  <url type="repository">https://github.com/Sriram27102003/Autonomous-Drone-Target-Tracking-System</url>
 
-  <!-- License -->
-  <license>BSD</license>
-
-  <!-- Author Information -->
-  <author email="your_email@domain.com">Your Name</author>
-
-  <!-- Build tool dependency -->
   <buildtool_depend>catkin</buildtool_depend>
 
-  <!-- Build dependencies (required for compiling the package) -->
-  <build_depend>rospy</build_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_depend>sensor_msgs</build_depend>
-  <build_depend>cv_bridge</build_depend>
-  <build_depend>gazebo_ros</build_depend>
-  <build_depend>gazebo_msgs</build_depend>   <!-- Gazebo messages for interacting with the simulation -->
-  <build_depend>gmapping</build_depend>      <!-- SLAM package -->
-  <build_depend>turtlebot3_slam</build_depend> <!-- TurtleBot3 SLAM support -->
-  <build_depend>turtlebot3_gazebo</build_depend> <!-- TurtleBot3 Gazebo environment -->
-  <build_depend>turtlebot3_teleop</build_depend> <!-- Teleoperation for TurtleBot3 -->
-
-  <!-- Export dependencies (to be available for other packages using this one) -->
-  <build_export_depend>rospy</build_export_depend>
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-  <build_export_depend>sensor_msgs</build_export_depend>
-  <build_export_depend>cv_bridge</build_export_depend>
-  <build_export_depend>gazebo_ros</build_export_depend>
-  <build_export_depend>gazebo_msgs</build_export_depend>
-  <build_export_depend>gmapping</build_export_depend>
-  <build_export_depend>turtlebot3_slam</build_export_depend>
-  <build_export_depend>turtlebot3_gazebo</build_export_depend>
-
-  <!-- Runtime dependencies (required to execute the package) -->
   <exec_depend>rospy</exec_depend>
-  <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>vision_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
   <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>gazebo_ros</exec_depend>
-  <exec_depend>gazebo_msgs</exec_depend>
-  <exec_depend>gmapping</exec_depend>
-  <exec_depend>turtlebot3_slam</exec_depend>
-  <exec_depend>turtlebot3_gazebo</exec_depend>
-  <exec_depend>turtlebot3_teleop</exec_depend>
-  <exec_depend>python3-pip</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
 
+  <!-- Simulation, mapping and visualisation -->
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>turtlebot3_description</exec_depend>
+  <exec_depend>turtlebot3_gazebo</exec_depend>
+  <exec_depend>turtlebot3_slam</exec_depend>
+  <exec_depend>turtlebot3_teleop</exec_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>image_view</exec_depend>
+
+  <!-- YOLOv8 comes from pip: pip3 install -r requirements.txt -->
 </package>

@@ -1,4 +1,0 @@
-<launch>
-  <arg name="map_file" default="$(find human_detector)/maps/my_map.yaml"/>
-  <node name="map_saver" pkg="map_server" type="map_saver" args="-f $(arg map_file)"/>
-</launch>
