@@ -1,0 +1,24 @@
+# target_follower_node.py parameters
+enabled: true
+rate: 10.0                 # control loop, Hz
+target_distance: 1.2       # metres to keep from the person
+distance_deadband: 0.1
+angular_deadband: 0.03     # rad
+kp_linear: 0.5
+kp_angular: 1.8
+max_linear: 0.22           # TurtleBot3 waffle limit is 0.26 m/s
+max_angular: 1.5           # rad/s, waffle limit is 1.82
+allow_reverse: true        # back away if the person comes too close
+safety_distance: 0.35      # stop driving forward if anything is this close in front
+front_half_width_deg: 20.0 # width of the "in front" lidar sector
+
+# Distance estimation
+person_height: 1.7         # metres, for the camera-based distance estimate
+scan_window_deg: 4.0       # lidar readings averaged around the person's bearing
+distance_tolerance: 0.5    # trust lidar only if within 50% of the camera estimate
+
+# Lost target
+target_timeout: 0.7        # seconds without a detection before the target counts as lost
+search_when_lost: true     # rotate towards where the person was last seen
+search_angular: 0.5        # rad/s
+search_timeout: 20.0       # give up searching after this many seconds

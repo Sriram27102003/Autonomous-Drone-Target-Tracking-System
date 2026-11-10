@@ -1,0 +1,6 @@
+<launch>
+  <!-- Save the current SLAM map: roslaunch human_detector save_map.launch map_name:=my_map -->
+  <arg name="map_name" default="forest_map"/>
+  <node pkg="map_server" type="map_saver" name="map_saver" output="screen"
+        args="-f $(find human_detector)/maps/$(arg map_name)"/>
+</launch>

@@ -1,0 +1,7 @@
+# explorer_node.py parameters
+enabled: true
+forward_speed: 0.15        # m/s
+turn_speed: 0.8            # rad/s
+obstacle_distance: 0.5     # turn in place when something is this close in front
+slow_distance: 1.0         # start slowing down / veering below this range
+front_half_width_deg: 30.0

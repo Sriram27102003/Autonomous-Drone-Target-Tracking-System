@@ -1,0 +1,25 @@
+<launch>
+  <!-- Gazebo + TurtleBot3. Only waffle / waffle_pi have a camera; burger will not work for tracking. -->
+  <arg name="model" default="waffle" doc="TurtleBot3 model [waffle, waffle_pi]"/>
+  <arg name="world" default="$(find human_detector)/worlds/forest_people.world"/>
+  <arg name="gui" default="true" doc="Show the Gazebo window"/>
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
+  <arg name="yaw" default="0.0"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world)"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <param name="robot_description"
+         command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro"/>
+
+  <node pkg="gazebo_ros" type="spawn_model" name="spawn_turtlebot3" output="screen"
+        args="-urdf -model turtlebot3_$(arg model) -x $(arg x) -y $(arg y) -z $(arg z) -Y $(arg yaw) -param robot_description"/>
+</launch>

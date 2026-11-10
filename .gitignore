@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+devel/
+install/
+# YOLO weights are downloaded automatically on first run
+*.pt
+# Saved maps (keep the folder)
+maps/*
+!maps/.gitkeep
